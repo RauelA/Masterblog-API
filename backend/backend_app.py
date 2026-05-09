@@ -12,6 +12,7 @@ POSTS = [
 
 @app.route('/api/posts', methods=['GET'])
 def get_posts():
+    """ Gets all posts, sorts them and returns a jsonified response """
     sort_field = request.args.get('sort')
     direction = request.args.get('direction', 'asc')
 
@@ -35,6 +36,7 @@ def get_posts():
 
 @app.route('/api/posts', methods=['POST'])
 def add_post():
+    """ Adds a post with POST request and returns a jsonified response """
     data = request.get_json()
 
     missing_fields = []
@@ -63,6 +65,7 @@ def add_post():
 
 @app.route('/api/posts/<int:post_id>', methods=['DELETE'])
 def delete_post(post_id):
+    """ Deletes a post with DELETE request and returns a jsonified response if successful """
     global POSTS
 
     post = next((post for post in POSTS if post['id'] == post_id), None)
@@ -77,6 +80,7 @@ def delete_post(post_id):
 
 @app.route('/api/posts/<int:post_id>', methods=['PUT'])
 def update_post(post_id):
+    """ Updates a post with PUT request and returns a jsonified response """
     data = request.get_json()
 
     post = next((post for post in POSTS if post['id'] == post_id), None)
@@ -95,6 +99,7 @@ def update_post(post_id):
 
 @app.route('/api/posts/search', methods=['GET'])
 def search_posts():
+    """ Requests all posts of given search term and returns a jsonified response """
     title_query = request.args.get('title', '').lower()
     content_query = request.args.get('content', '').lower()
 

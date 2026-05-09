@@ -5,6 +5,7 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET'])
 def home():
+    """ Home page function loaded from index.html """
     return render_template("index.html")
 
 
